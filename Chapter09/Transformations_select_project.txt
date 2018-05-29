@@ -1,0 +1,23 @@
+#select
+
+//java
+SplitStream<Integer> split;
+DataStream<Integer> even = split.select("even");
+DataStream<Integer> odd = split.select("odd");
+DataStream<Integer> all = split.select("even","odd");
+
+//scala
+val even = split select "even"
+val odd = split select "odd"
+val all = split.select("even","odd")
+
+#project
+
+//java
+DataStream<Tuple4<Integer, Double, String, String>> in = // [...]
+DataStream<Tuple2<String, String>> out = in.project(3,2);
+
+//scala
+val in : DataStream[(Int,Double,String)] = // [...]
+val out = in.project(3,2)
+

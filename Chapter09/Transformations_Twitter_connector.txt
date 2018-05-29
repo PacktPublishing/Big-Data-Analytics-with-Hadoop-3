@@ -1,0 +1,49 @@
+#add maven dependency:
+
+<dependency>
+<groupId>org.apache.flink</groupId>
+<artifactId>flink-connector-twitter_2.11/artifactId>
+<version>1.1.4</version>
+</dependency>
+
+#add twitter as a data source
+
+//java
+Properties props = new Properties();
+props.setProperty(TwitterSource.CONSUMER_KEY, "");
+props.setProperty(TwitterSource.CONSUMER_SECRET, "");
+props.setProperty(TwitterSource.TOKEN, "");
+props.setProperty(TwitterSource.TOKEN_SECRET, "");
+DataStream<String> streamSource = env.addSource(new TwitterSource(props));
+
+//scala
+val props = new Properties();
+props.setProperty(TwitterSource.CONSUMER_KEY, "");
+props.setProperty(TwitterSource.CONSUMER_SECRET, "");
+props.setProperty(TwitterSource.TOKEN, "");
+props.setProperty(TwitterSource.TOKEN_SECRET, "");
+DataStream<String> streamSource = env.addSource(new TwitterSource(props));
+
+#sample Twitter JSON
+
+{
+...
+"text": ""Loyalty 3.0: How to Revolutionize Customer &amp; Employee
+Engagement with Big Data &amp; #Gamification" can be ordered here:
+http://t.co/1XhqyaNjuR",
+"geo": null,
+"retweeted": false,
+"in_reply_to_screen_name": null,
+"possibly_sensitive": false,
+"truncated": false,
+"lang": "en",
+"hashtags": [{
+"text": "Gamification",
+"indices": [90,
+103]
+}],
+},
+"in_reply_to_status_id_str": null,
+"id": 330094515484508160
+...
+}

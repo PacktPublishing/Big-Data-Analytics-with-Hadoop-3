@@ -1,0 +1,11 @@
+#checks for NA
+colSums(is.na(df))
+
+#application on a merge
+d2 = df[0:11, c("InvoiceNo", "StockCode", "Description")]
+d3 = df[11:20, c("StockCode", "Description", "Quantity")]
+
+d4 = merge(d2, d3, all=T)
+
+colSums(is.na(d4))
+

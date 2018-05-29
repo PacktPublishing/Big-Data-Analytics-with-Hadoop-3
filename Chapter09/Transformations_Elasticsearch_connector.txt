@@ -1,0 +1,90 @@
+#Add this maven dependency:
+
+<dependency>
+\<groupId>org.apache.flink</groupId>
+<artifactId>flink-connector-elasticsearch_2.11</artifactId>
+<version>1.1.4</version>
+</dependency>
+
+
+#Embedded node mode:
+
+//Java
+DataStream<String> input = ...;
+Map<String, String> config = Maps.newHashMap();
+config.put("bulk.flush.max.actions", "1");
+config.put("cluster.name", "cluster-name");
+input.addSink(new ElasticsearchSink<>(config, new
+IndexRequestBuilder<String>() {
+@Override
+public IndexRequest createIndexRequest(String element, RuntimeContext ctx) {
+    Map<String, Object> json = new HashMap<>();
+    json.put("data", element);
+    return Requests.indexRequest()
+    .index("my-index")
+    .type("my-type")
+    .source(json);
+}
+}));
+
+//Scala
+
+val input: DataStream[String] = ...
+val config = new util.HashMap[String, String]
+config.put("bulk.flush.max.actions", "1")
+config.put("cluster.name", "cluster-name")
+text.addSink(new ElasticsearchSink(config, new IndexRequestBuilder[String]
+{
+    override def createIndexRequest(element: String, ctx: RuntimeContext):
+    IndexRequest = {
+        val json = new util.HashMap[String, AnyRef]
+        json.put("data", element)
+        Requests.indexRequest.index("my-index").`type`("my-type").source(json)
+    }
+}))
+
+
+
+#Transport client mode
+
+//Java
+DataStream<String> input = ...;
+Map<String, String> config = Maps.newHashMap();
+config.put("bulk.flush.max.actions", "1");
+config.put("cluster.name", "cluster-name");
+List<TransportAddress> transports = new ArrayList<String>();
+transports.add(new InetSocketTransportAddress("es-node-1", 9300));
+transports.add(new InetSocketTransportAddress("es-node-2", 9300));
+transports.add(new InetSocketTransportAddress("es-node-3", 9300));
+input.addSink(new ElasticsearchSink<>(config, transports, new
+IndexRequestBuilder<String>() {
+@Override
+public IndexRequest createIndexRequest(String element, RuntimeContext ctx) {
+Map<String, Object> json = new HashMap<>();
+json.put("data", element);
+return Requests.indexRequest()
+.index("my-index")
+.type("my-type")
+.source(json);
+}
+}));
+
+//Scala
+
+val input: DataStream[String] = ...
+val config = new util.HashMap[String, String]
+config.put("bulk.flush.max.actions", "1")
+config.put("cluster.name", "cluster-name")
+val transports = new ArrayList[String]
+transports.add(new InetSocketTransportAddress("es-node-1", 9300))
+transports.add(new InetSocketTransportAddress("es-node-2", 9300))
+transports.add(new InetSocketTransportAddress("es-node-3", 9300))
+text.addSink(new ElasticsearchSink(config, transports, new
+IndexRequestBuilder[String] {
+override def createIndexRequest(element: String, ctx: RuntimeContext):
+IndexRequest = {
+val json = new util.HashMap[String, AnyRef]
+json.put("data", element)
+Requests.indexRequest.index("my-index").`type`("my-type").source(json)
+}
+}))

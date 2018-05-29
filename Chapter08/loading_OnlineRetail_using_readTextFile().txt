@@ -1,0 +1,9 @@
+#loading OnlineRetail.csv
+val dataSet = benv.readTextFile("OnlineRetail.csv")
+dataSet.first(10).print()
+
+#loading dataset, and removing first line and returning that dataset (no header row):
+val dataSet =benv
+    .readTextFile("OnlineRetail.csv")
+    .filter(!_.startsWith("InvoiceNo"))
+dataSet.first(10).print()

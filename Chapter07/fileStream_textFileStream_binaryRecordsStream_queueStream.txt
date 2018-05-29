@@ -1,0 +1,45 @@
+#fileStream
+def fileStream[K: ClassTag, V: ClassTag, F <: NewInputFormat[K, V]: ClassTag] (directory: String): InputDStream[(K, V)]
+
+#textFileStream
+def textFileStream(directory: String): Dstream[String]
+
+#binaryRecordStream
+def binaryRecordsStream(directory: String, recordLength: Int): Dstream[Array[Byte]]
+
+#queueStream
+def queueStream[T: ClassTag](queue: Queue[RDD[T]], oneAtATime: Boolean = true): InputDStream[T]
+
+###Examples
+
+#textFileStream example
+import org.apache.spark._
+import org.apache.spark.streaming._
+val ssc = new StreamingContext(sc, Seconds(10))
+val filestream = ssc.textFileStream("streamfiles")
+filestream.foreachRDD(rdd => {println(rdd.count())})
+ssc.start
+
+#twitterStream
+import org.apache.spark._
+import org.apache.spark.streaming._
+import org.apache.spark.streaming.twitter._
+import twitter4j.auth.OAuthAuthorization
+import twitter4j.conf.ConfigurationBuilder
+
+//you can replace the next 4 settings with your own twitter account
+settings.
+
+System.setProperty("twitter4j.oauth.consumerKey",
+"8wVysSpBc0LGzbwKMRh8hldSm")
+System.setProperty("twitter4j.oauth.consumerSecret",
+"FpV5MUDWliR6sInqIYIdkKMQEKaAUHdGJkEb4MVhDkh7dXtXPZ")
+System.setProperty("twitter4j.oauth.accessToken", "817207925756358656-
+yR0JR92VBdA2rBbgJaF7PYREbiV8VZq")
+System.setProperty("twitter4j.oauth.accessTokenSecret",
+"JsiVkUItwWCGyOLQEtnRpEhbXyZS9jNSzcMtycn68aBaS")
+val ssc = new StreamingContext(sc, Seconds(10))
+val twitterStream = TwitterUtils.createStream(ssc, None)
+twitterStream.saveAsTextFiles("streamouts/tweets", "txt")
+ssc.start()
+

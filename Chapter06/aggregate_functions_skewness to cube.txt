@@ -1,0 +1,94 @@
+#### Skewness
+
+#skewness has these implementations:
+
+def skewness(columnName: String): Column
+ //Aggregate function: returns the skewness of the values in a group.
+def skewness(e: Column): Column
+ //Aggregate function: returns the skewness of the values in a group.
+
+#invoking skewness:
+
+import org.apache.spark.sql.functions._
+statesPopulationDF.select(skewness("Population")).show
+
+#### Variance
+
+#variance has these implementations:
+
+def var_pop(columnName: String): Column
+ /Aggregate function: returns the population variance of the values in a group.
+def var_pop(e: Column): Column
+ //Aggregate function: returns the population variance of the values in a group.
+def var_samp(columnName: String): Column
+ //Aggregate function: returns the unbiased variance of the values in a group.
+def var_samp(e: Column): Column
+ //Aggregate function: returns the unbiased variance of the values in a group.
+
+#invoking variance:
+
+import org.apache.spark.sql.functions._
+statesPopulationDF.select(var_pop("Population")).show
+
+#### Standard Deviation
+
+#standard deviation has these implementations:
+
+def stddev(columnName: String): Column
+ //Aggregate function: alias for stddev_samp.
+def stddev(e: Column): Column
+ //Aggregate function: alias for stddev_samp.
+def stddev_pop(columnName: String): Column
+ //Aggregate function: returns the population standard deviation of the  expression in a group.
+def stddev_pop(e: Column): Column
+ //Aggregate function: returns the population standard deviation of the  expression in a group.
+def stddev_samp(columnName: String): Column
+ //Aggregate function: returns the sample standard deviation of the expression in a group.
+def stddev_samp(e: Column): Column
+ //Aggregate function: returns the sample standard deviation of the expression in a group.
+
+#invoking standard deviation:
+
+import org.apache.spark.sql.functions._
+statesPopulationDF.select(stddev("Population")).show
+
+#### Covariance
+
+#covariance has these implementations:
+
+def covar_pop(columnName1: String, columnName2: String): Column
+ //Aggregate function: returns the population covariance for two columns.
+def covar_pop(column1: Column, column2: Column): Column
+ //Aggregate function: returns the population covariance for two columns.
+def covar_samp(columnName1: String, columnName2: String): Column
+ //Aggregate function: returns the sample covariance for two columns.
+def covar_samp(column1: Column, column2: Column): Column
+ /Aggregate function: returns the sample covariance for two columns.
+
+#invoking covariance:
+
+import org.apache.spark.sql.functions._
+statesPopulationDF.select(covar_pop("Year", "Population")).show
+
+#### GroupBy
+
+#running groupBy on the DataFrame:
+
+statesPopulationDF.groupBy("State").count.show(5)
+
+#You can also do groupBy and apply any of the previous aggregate functions:
+
+import org.apache.spark.sql.functions._
+statesPopulationDF.groupBy("State").agg(min("Population"), avg("Population")).show(5)
+
+#### Rollup
+
+
+#using rollup:
+
+statesPopulationDF.rollup("State", "Year").count.show(5)
+
+#### Cube
+
+#using cube: statesPopulationDF.cube("State", "Year").count.show(5)
+

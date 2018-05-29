@@ -1,0 +1,13 @@
+#left anti join:
+
+val joinDF = statesPopulationDF.join(statesTaxRatesDF,
+ statesPopulationDF("State") === statesTaxRatesDF("State"), "leftanti")
+ %sql
+ val joinDF = spark.sql("SELECT * FROM statesPopulationDF LEFT ANTI JOIN
+ statesTaxRatesDF ON statesPopulationDF.State = statesTaxRatesDF.State")
+
+
+joinDF.count
+joinDF.show(5)
+
+

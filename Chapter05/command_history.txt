@@ -1,0 +1,8 @@
+#save history
+savehistory(file="logname.Rhistory")
+
+#load history
+loadhistory(file="logname.Rhistory")
+
+#access history
+history()

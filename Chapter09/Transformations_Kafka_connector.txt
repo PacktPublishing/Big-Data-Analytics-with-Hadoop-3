@@ -1,0 +1,38 @@
+#Kafka connector
+
+#adding following dependency to pom.xml:
+
+<dependency>
+    <groupId>org.apache.flink</groupId>
+    <artifactId>flink-connector-kafka-0.9_2.11/artifactId>
+    <version>1.1.4</version>
+</dependency>
+
+
+#using Kafka consumer as Karka source:
+
+//java
+Properties properties = new Properties();
+properties.setProperty("bootstrap.servers", "localhost:9092");
+properties.setProperty("group.id", "test");
+DataStream<String> input = env.addSource(new
+FlinkKafkaConsumer09<String>("mytopic", new SimpleStringSchema(), properties));
+
+//scala
+val properties = new Properties();
+properties.setProperty("bootstrap.servers", "localhost:9092");
+// only required for Kafka 0.8
+properties.setProperty("zookeeper.connect", "localhost:2181");
+properties.setProperty("group.id", "test");
+stream = env
+.addSource(new FlinkKafkaConsumer09[String]("mytopic", new
+SimpleStringSchema(), properties))
+.print
+
+#writing data to a Kafka topic:
+
+//java
+stream.addSink(new FlinkKafkaProducer09[String]("localhost:9092", "mytopic", new SimpleStringSchema()))
+
+//scala
+stream.addSink(new FlinkKafkaProducer09<String>("localhost:9092", "mytopic", new SimpleStringSchema()));

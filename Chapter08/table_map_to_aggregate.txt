@@ -1,0 +1,26 @@
+#Map
+data.map { x => x.toInt }
+
+#FlatMap
+data.flatMap { str => str.split(" ") }
+
+#MapPartition
+data.mapPartition { in => in map { (_, 1) } }
+
+#Filter
+data.filter { _ > 1000 }
+
+#Reduce
+data.reduce { _ + _ }
+
+#ReduceGroup
+data.reduceGroup { elements => elements.sum }
+
+#Aggregate
+val input: DataSet[(Int, String, Double)] = // [...]
+val output: DataSet[(Int, String, Double)] = input.aggregate(SUM, 0).aggregate(MIN, 2)
+
+#Aggregate with short-hand syntax for min, max, sum aggregations
+val input: DataSet[(Int, String, Double)] = // [...]
+val output: DataSet[(Int, String, Double)] = input.sum(0).min(2)
+

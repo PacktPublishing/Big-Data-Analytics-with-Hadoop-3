@@ -1,0 +1,17 @@
+#Loading the datasets:
+
+val statesPopulationDF = spark.read.option("header",
+ "true").option("inferschema", "true").option("sep",
+ ",").csv("statesPopulation.csv")
+
+val statesTaxRatesDF = spark.read.option("header",
+ "true").option("inferschema", "true").option("sep",
+ ",").csv("statesTaxRates.csv")
+
+statesPopulationDF.count
+statesTaxRatesDF.count
+
+%sql
+ statesPopulationDF.createOrReplaceTempView("statesPopulationDF")
+ statesTaxRatesDF.createOrReplaceTempView("statesTaxRatesDF")
+

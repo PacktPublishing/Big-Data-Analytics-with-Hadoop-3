@@ -1,0 +1,36 @@
+#distinct
+data.distinct()
+
+#join
+// In this case tuple fields are used as keys. "0" is the join field on the first tuple
+// "1" is the join field on the second tuple.
+val result = input1.join(input2).where(0).equalTo(1)
+
+#join
+// This executes a join by broadcasting the first data set
+// using a hash table for the broadcast data
+val result = input1.join(input2, JoinHint.BROADCAST_HASH_FIRST)
+                   .where(0).equalTo(1)
+
+#outer join
+val joined = left.leftOuterJoin(right).where(0).equalTo(1) {
+   (left, right) =>
+     val a = if (left == null) "none" else left._1
+     (a, right)
+  }
+
+#CoGroup
+data1.coGroup(data2).where(0).equalTo(1)
+
+#Cross
+val data1: DataSet[Int] = // [...]
+val data2: DataSet[String] = // [...]
+val result: DataSet[(Int, String)] = data1.cross(data2)
+
+#Union
+data.union(data2)
+
+#Rebalance
+val data1: DataSet[Int] = // [...]
+val result: DataSet[(Int, String)] = data1.rebalance().map(...)
+

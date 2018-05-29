@@ -1,0 +1,2 @@
+df4 = pd.DataFrame(df, columns=['StockCode', 'Quantity', 'InvoiceDate', 'UnitPrice']
+df4.head(3)

@@ -1,0 +1,15 @@
+#inner join
+
+val joinDF = statesPopulationDF.join(statesTaxRatesDF,
+ statesPopulationDF("State") === statesTaxRatesDF("State"), "inner")
+%sql
+ val joinDF = spark.sql("SELECT * FROM statesPopulationDF INNER JOIN
+ statesTaxRatesDF ON statesPopulationDF.State = statesTaxRatesDF.State")
+
+joinDF.count
+joinDF.show
+
+#Running explain on joinDF to get execution plan:
+
+joinDF.explain
+

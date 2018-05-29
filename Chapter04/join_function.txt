@@ -1,0 +1,16 @@
+#This is NOT allowed (they share a column):
+d4 = pd.DataFrame(df, columns=['StockCode', 'Description', 'UnitPrice'])[0:11]
+d5 = pd.DataFrame(df, columns=[ 'Description', 'Quantity', 'InvoiceNo'])[10:20]
+d4.join(d5)
+
+#This is allowed
+d4 = pd.DataFrame(df, columns=['StockCode', 'UnitPrice'])[0:11]
+d5 = pd.DataFrame(df, columns=[ 'Description', 'Quantity'])[10:20]
+d4.join(d5)
+
+
+#We can join d4 to d5 (the other way around)
+d4 = pd.DataFrame(df, columns=['StockCode', 'UnitPrice'])[0:11]
+d5 = pd.DataFrame(df, columns=[ 'Description', 'Quantity'])[10:20]
+d5.join(d4)
+

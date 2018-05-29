@@ -1,0 +1,9 @@
+conda install scikit-learn
+conda install pandas
+conda install scikit-learn
+conda install matplotlib
+conda install seaborn
+
+
+pip install hdfs
+pip install pyarrow

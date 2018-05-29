@@ -1,0 +1,15 @@
+d4 = pd.DataFrame(df, columns=['InvoiceNo', 'StockCode', 'Description'])[0:11]
+d5 = pd.DataFrame(df, columns=['StockCode', 'Description', 'Quantity'])[10:20]
+
+#Left merge
+pd.merge(d4, d5, how='left')
+
+#Right merge
+pd.merge(d4, d5, how='right')
+
+#Inner merge
+pd.merge(d4, d5, how='inner')
+
+#Outer merge
+pd.merge(d4, d5, how='outer')
+

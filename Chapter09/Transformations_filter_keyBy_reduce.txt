@@ -1,0 +1,36 @@
+#filter
+
+//java
+inputStream.filter(new FilterFunction<Integer>() {
+@Override
+    public boolean filter(Integer value) throws Exception {
+        return value != 1;
+    }
+});
+
+//scala
+inputStream.filter { _ != 1 }
+
+#keyBy
+
+//java
+inputStream.keyBy("someKey");
+
+//scala
+inputStream.keyBy("someKey")
+
+#reduce
+
+//java
+keyedInputStream. reduce(new ReduceFunction<Integer>() {
+@Override
+    public Integer reduce(Integer value1, Integer value2)
+        throws Exception {
+            return value1 + value2;
+        }
+});
+
+//scala
+keyedInputStream. reduce { _ + _ }
+
+

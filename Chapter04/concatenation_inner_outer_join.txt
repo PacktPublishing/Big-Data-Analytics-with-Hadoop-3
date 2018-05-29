@@ -1,0 +1,11 @@
+d4 = pd.DataFrame(df, columns=['InvoiceNo', 'StockCode', 'Description'])[0:10]
+d5 = pd.DataFrame(df, columns=['StockCode', 'Description', 'Quantity'])[0:10]
+
+pd.concat([d4, d5])
+
+
+#That is the same as this:
+pd.concat([d4, d5], join='outer')
+
+#inner join concatenation
+pd.concat([d4, d5], join='inner')

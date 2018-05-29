@@ -1,0 +1,7 @@
+#example
+d1 = df[0:30, c(1:8)
+
+d1[d1$UnitPrice > 3, "Description"] <- "Miscellaneous"
+
+d1[d1$InvoiceNo == 536365, "Country"] = "United States"
+

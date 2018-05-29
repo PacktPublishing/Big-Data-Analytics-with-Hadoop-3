@@ -1,0 +1,21 @@
+#Left merge on column StockCode
+pd.merge(d4, d5, on='StockCode', how='left')
+
+#Left merge on column Description
+pd.merge(d4, d5, on='Description', how='left')
+
+#Left merge on multiple columns
+pd.merge(d4, d5, on=['StockCode', 'Description'], how='left')
+
+#The above line of code is the same as:
+pd.merge(d4, d5, how='left')
+
+#Distinguishing between data frames even when merging on multiple columns
+d4 = pd.DataFrame(df, columns=['InvoiceNo', 'StockCode', 'Description', 'UnitPrice'])[0:11]
+d5 = pd.DataFrame(df, columns=['StockCode', 'Description', 'Quantity', 'UnitPrice'])[10:20]
+pd.merge(d4, d5, on=['StockCode', 'Description'], how='left')
+
+#You want every column to distuinguish between the two data frames
+pd.merge(d4, d5, left_index = True, right_index=True, how='outer')
+
+

@@ -1,0 +1,11 @@
+#user defined function(UDF)
+import org.apache.spark.sql.functions._
+
+val toUpper: String => String = _.toUpperCase
+
+#encapsulating inside udf
+val toUpperUDF = udf(toUpper)
+
+#Using it to convert state column to uppercase:
+
+statesDF.withColumn("StateUpperCase", toUpperUDF(col("State"))).show(5)

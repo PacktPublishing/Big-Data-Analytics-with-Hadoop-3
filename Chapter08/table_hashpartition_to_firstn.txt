@@ -1,0 +1,28 @@
+#hash-partition
+val in: DataSet[(Int, String)] = // [...]
+val result = in.partitionByHash(0).mapPartition { ... }
+
+#range-partition
+val in: DataSet[(Int, String)] = // [...]
+val result = in.partitionByRange(0).mapPartition { ... }
+
+#custom partitioning
+val in: DataSet[(Int, String)] = // [...]
+val result = in.partitionCustom(partitioner: Partitioner[K], key)
+
+#sort partition
+val in: DataSet[(Int, String)] = // [...]
+val result = in.sortPartition(1, Order.ASCENDING).mapPartition { ... }
+
+#first-n
+val in: DataSet[(Int, String)] = // [...]
+
+// regular data set
+val result1 = in.first(3)
+
+// grouped data set
+val result2 = in.groupBy(0).first(3)
+
+// grouped-sorted data set
+val result3 = in.groupBy(0).sortGroup(1, Order.ASCENDING).first(3)
+

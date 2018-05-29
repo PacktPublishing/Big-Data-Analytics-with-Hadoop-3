@@ -1,0 +1,50 @@
+#direct stream created using Kafka Utils:
+
+def createDirectStream[
+K: ClassTag,
+//K type of Kafka message key
+
+V: ClassTag,
+//V type of Kafka message value
+
+KD <: Decoder[K]: ClassTag,
+//KD type of Kafka message key decoder
+
+VD <: Decoder[V]: ClassTag,
+//VD type of Kafka message value decoder
+
+R: ClassTag
+//R type returned by messageHandler
+
+](
+ssc: StreamingContext,
+
+//StreamingContext object
+kafkaParams: Map[String, String],
+
+/*
+kafkaParams Kafka <a
+href="http://kafka.apache.org/documentation.html#configuration">
+configuration parameters</a>. Requires "metadata.broker.list" or
+"bootstrap.servers"
+to be set with Kafka broker(s) (NOT Zookeeper servers) specified in
+host1:port1,host2:port2 form.
+*/
+
+fromOffsets: Map[TopicAndPartition, Long],
+//fromOffsets Per-topic/partition Kafka offsets defining the (inclusive) starting point ofthe stream
+
+messageHandler: MessageAndMetadata[K, V] => R
+//messageHandler Function for translating each message and metadata into the desired type
+
+): InputDStream[R]
+//DStream of R
+
+
+#Example of Direct Stream that pulls data from Kafka topics:
+val topicsSet = topics.split(",").toSet
+val kafkaParams : Map[String, String] =
+Map("metadata.broker.list" -> brokers,
+"group.id" -> groupid )
+val rawDstream = KafkaUtils.createDirectStream[String, String,
+StringDecoder, StringDecoder](ssc, kafkaParams, topicsSet)

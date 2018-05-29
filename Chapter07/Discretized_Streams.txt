@@ -1,0 +1,40 @@
+#DStream class is similar to:
+class DStream[T: ClassTag] (var ssc: StreamingContext)
+
+//hashmap of RDDs in the DStream
+var generatedRDDs = new HashMap[Time, RDD[T]]()
+
+
+
+#Create StreamingContext from SparkContext:
+val ssc = new StreamingContext(sc, Seconds(5))
+
+#Create DStream from StreamingContext:
+val twitterStream = TwitterUtils.createStream(ssc, None)
+
+#Transformations and actions applied to each RDD
+val aggStream = twitterStream
+.flatMap(x => x.getText.split(" ")).filter(_.startsWith("#"))
+.map(x => (x, 1))
+.reduceByKey(_ + _)
+
+#calling start on StreamingContext
+ssc.start()
+
+//to stop just call stop on the StreamingContext
+ssc.stop(false)
+
+
+
+
+#what we see when we receive from Twitter Stream:
+class InputDStream[T: ClassTag](_ssc: StreamingContext) extends
+DStream[T](_ssc)
+
+class ReceiverInputDStream[T: ClassTag](_ssc: StreamingContext) extends
+InputDStream[T](_ssc)
+
+#using a flatmap() transformation:
+val wordStream = twitterStream.flatMap(x => x.getText().split(" "))
+
+

@@ -1,0 +1,27 @@
+#invoke createStream API:
+def createStream(ssc: StreamingContext,
+// StreamingContext object
+
+zkQuorum: String,
+//Zookeeper quorum (hostname:port,hostname:port,..)
+
+groupId: String,
+//Group id for the consumer
+
+topics: Map[String, Int],
+//Map of (topic_name to numPartitions) to consume
+
+storageLevel: StorageLevel = StorageLevel.MEMORY_AND_DISK_SER_2
+//Storage level to use for storing the received objects
+
+(default: StorageLevel.MEMORY_AND_DISK_SER_2)
+): ReceiverInputDStream[(String, String)]
+//DStream of (Kafka message key,
+Kafka message value)
+
+
+#Example of creation of receiver based stream based on Kafka:
+val topicMap = topics.split(",").map((_, numThreads.toInt)).toMap
+val lines = KafkaUtils.createStream(ssc, zkQuorum, group,
+topicMap).map(_._2)
+

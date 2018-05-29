@@ -1,0 +1,19 @@
+df.head(3)
+
+len(df)
+
+#Outputting the first three elements of all data that has a price greater than 3
+
+df2 = df.loc[df.UnitPrice > 3.0]
+df2.head(3)
+
+
+#Replacing descriptions of all items with a price greater than 3 with 'Miscellaneous'
+
+df.loc[df.UnitPrice > 3.0, ['Description']] = 'Miscellaneous'
+df.head(3)
+
+df.loc[2]
+
+df['Quantity'].plot()
+

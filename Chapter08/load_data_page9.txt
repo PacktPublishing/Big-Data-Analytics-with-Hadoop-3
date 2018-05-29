@@ -1,0 +1,5 @@
+#To load data:
+
+val dataSet = benv
+.readTextFile("OnlineRetail.csv")
+dataSet.count()

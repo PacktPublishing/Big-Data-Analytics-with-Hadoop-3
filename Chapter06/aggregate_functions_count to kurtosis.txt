@@ -1,0 +1,161 @@
+#loading sample data
+val statesPopulationDF = spark.read.option("header", "true").
+ option("inferschema", "true").
+ option("sep", ",").csv("statesPopulation.csv")
+
+#### Count
+
+#count and countDistinct have these implementations:
+
+def count(columnName: String): TypedColumn[Any, Long]
+ //Aggregate function: returns the number of items in a group.
+def count(e: Column): Column
+ //Aggregate function: returns the number of items in a group.
+def countDistinct(columnName: String, columnNames: String*): Column
+ //Aggregate function: returns the number of distinct items in a group.
+def countDistinct(expr: Column, exprs: Column*): Column
+ //Aggregate function: returns the number of distinct items in a group.
+
+#invoking count and countDistinct
+
+import org.apache.spark.sql.functions._
+statesPopulationDF.select(col("*")).agg(count("State")).show
+statesPopulationDF.select(count("State")).show
+
+statesPopulationDF.select(col("*")).agg(countDistinct("State")).show
+statesPopulationDF.select(countDistinct("State")).show
+
+
+#### First
+
+#first has these implementations:
+
+def first(columnName: String): Column
+ //Aggregate function: returns the first value of a column in a group.
+def first(e: Column): Column
+ //Aggregate function: returns the first value in a group.
+def first(columnName: String, ignoreNulls: Boolean): Column
+ //Aggregate function: returns the first value of a column in a group.
+def first(e: Column, ignoreNulls: Boolean): Column
+ //Aggregate function: returns the first value in a group. 
+
+#invoking first:
+
+import org.apache.spark.sql.functions._
+statesPopulationDF.select(first("State")).show
+
+#### Last
+
+#last has these implementations:
+
+def last(columnName: String): Column
+ //Aggregate function: returns the last value of the column in a group.
+def last(e: Column): Column
+ //Aggregate function: returns the last value in a group.
+def last(columnName: String, ignoreNulls: Boolean): Column
+ //Aggregate function: returns the last value of the column in a group.
+def last(e: Column, ignoreNulls: Boolean): Column
+ //Aggregate function: returns the last value in a group.
+
+#invoking last:
+
+import org.apache.spark.sql.functions._
+statesPopulationDF.select(last("State")).show
+
+
+#### approx_count_distinct
+
+#approx_count_distinct has these implementations:
+
+def approx_count_distinct(columnName: String, rsd: Double): Column
+ //Aggregate function: returns the approximate number of distinct items in a group.
+def approx_count_distinct(e: Column, rsd: Double): Column
+ //Aggregate function: returns the approximate number of distinct items in a group.
+def approx_count_distinct(columnName: String): Column
+ //Aggregate function: returns the approximate number of distinct items in a group.
+def approx_count_distinct(e: Column): Column
+ //Aggregate function: returns the approximate number of distinct items in a group.
+
+
+#invoking approx_count_distinct:
+
+import org.apache.spark.sql.functions._
+statesPopulationDF.select(col("*")).agg(approx_count_distinct("State")).show
+statesPopulationDF.select(approx_count_distinct("State", 0.2)).show
+
+#### Min
+
+#min has these implementations:
+
+def min(columnName: String): Column
+ //Aggregate function: returns the minimum value of the column in a group.
+def min(e: Column): Column
+ //Aggregate function: returns the minimum value of the expression in a group.
+
+#invoking min:
+
+import org.apache.spark.sql.functions._
+statesPopulationDF.select(min("Population")).show
+
+#### Max
+
+#max has these implementations:
+
+def max(columnName: String): Column
+ //Aggregate function: returns the maximum value of the column in a group.
+def max(e: Column): Column
+ //Aggregate function: returns the maximum value of the expression in a group.
+
+#invoking max:
+
+import org.apache.spark.sql.functions._
+statesPopulationDF.select(max("Population")).show
+
+#### Avg
+
+#avg has these impelmentations:
+
+def avg(columnName: String): Column
+ //Aggregate function: returns the average of the values in a group.
+def avg(e: Column): Column
+ //Aggregate function: returns the average of the values in a group.
+
+#invoking avg:
+
+import org.apache.spark.sql.functions._
+statesPopulationDF.select(avg("Population")).show
+
+
+#### Sum
+
+#sum has these implementations:
+
+def sum(columnName: String): Column
+ //Aggregate function: returns the sum of all values in the given column.
+def sum(e: Column): Column
+ //Aggregate function: returns the sum of all values in the expression.
+def sumDistinct(columnName: String): Column
+ //Aggregate function: returns the sum of distinct values in the expression
+def sumDistinct(e: Column): Column
+ //Aggregate function: returns the sum of distinct values in the expression.
+
+#invoking sum:
+
+import org.apache.spark.sql.functions._
+statesPopulationDF.select(sum("Population")).show
+
+
+#### Kurtosis
+
+#kurtosis has these implementations:
+
+def kurtosis(columnName: String): Column
+ //Aggregate function: returns the kurtosis of the values in a group.
+def kurtosis(e: Column): Column
+ //Aggregate function: returns the kurtosis of the values in a group.
+
+#invoking kurtosis:
+
+import org.apache.spark.sql.functions._
+statesPopulationDF.select(kurtosis("Population")).show
+

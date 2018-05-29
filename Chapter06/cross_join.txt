@@ -1,0 +1,6 @@
+#cross join
+
+val joinDF=statesPopulationDF.crossJoin(statesTaxRatesDF)
+
+joinDF.count
+joinDF.show

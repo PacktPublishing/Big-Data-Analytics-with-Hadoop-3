@@ -1,0 +1,5 @@
+import pandas as pd
+from hdfs import InsecureClient
+client_hdfs = InsecureClient('http://localhost:9870')
+with client_hdfs.read('/user/normal/OnlineRetail.csv', encoding = 'utf-8') as reader:
+ df = pd.read_csv(reader,index_col=0)

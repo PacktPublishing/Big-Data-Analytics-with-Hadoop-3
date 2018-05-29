@@ -1,0 +1,39 @@
+#fold
+
+//java
+keyedInputStream keyedStream.fold("Start", new FoldFunction<Integer, String>() {
+@Override
+    public String fold(String current, Integer value) {
+        return current + "=" + value;
+    }
+});
+
+//scala
+keyedInputStream.fold("Start")((str, i) => { str + "=" + i })
+
+#aggregations
+
+//java
+keyedInputStream.sum(0)
+keyedInputStream.sum("key")
+keyedInputStream.min(0)
+keyedInputStream.min("key")
+keyedInputStream.max(0)
+keyedInputStream.max("key")
+keyedInputStream.minBy(0)
+keyedInputStream.minBy("key")
+keyedInputStream.maxBy(0)
+keyedInputStream.maxBy("key")
+
+//scala
+keyedInputStream.sum(0)
+keyedInputStream.sum("key")
+keyedInputStream.min(0)
+keyedInputStream.min("key")
+keyedInputStream.max(0)
+keyedInputStream.max("key")
+keyedInputStream.minBy(0)
+keyedInputStream.minBy("key")
+keyedInputStream.maxBy(0)
+keyedInputStream.maxBy("key")
+

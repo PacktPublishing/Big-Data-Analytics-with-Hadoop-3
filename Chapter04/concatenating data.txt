@@ -1,0 +1,10 @@
+d1 = df[0:10]
+d2 = df[10:20]
+
+d3 = pd.concat([d1, d2])
+d3
+
+
+#Concatenates data but puts a marker to distinguish between the data of the two dataframes. 
+d3 = pd.concat([d1, d2], keys=['d1', 'd2'])
+

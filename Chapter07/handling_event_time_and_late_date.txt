@@ -1,0 +1,34 @@
+#window operations on unbounded table:
+
+import java.sql.Timestamp
+import org.apache.spark.sql.SparkSession
+import org.apache.spark.sql.functions._
+
+// Creating DataFrame that represent the stream of input lines from connection
+to host:port
+val inputLines = spark.readStream
+.format("socket")
+.option("host", "localhost")
+.option("port", 9999)
+.option("includeTimestamp", true)
+.load()
+
+// Splitting the lines into words, retaining timestamps
+val words = inputLines.as[(String, Timestamp)].flatMap(line =>
+line._1.split(" ").map(word => (word, line._2))
+).toDF("word", "timestamp")
+
+// Grouping the data by window and word and computing the count of each
+val windowedCounts = words.withWatermark("timestamp", "10 seconds")
+.groupBy(
+window($"timestamp", "10 seconds", "10 seconds"), $"word"
+).count().orderBy("window")
+
+// Begin executing the query which will print the windowed word counts to the
+console
+val query = windowedCounts.writeStream.outputMode("complete")
+.format("console")
+.option("truncate", "false")
+
+query.start()
+query.awaitTermination()

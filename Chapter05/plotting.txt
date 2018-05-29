@@ -1,0 +1,58 @@
+#plotting a column
+plot(df$UnitPrice)
+
+#point plot
+plot(df$UnitPrice, type="p")
+
+#redefining the range so the plot is less crowded
+d1 = df[0:30, c(1:8)]
+plot(d1$UnitPrice)
+
+#shows point plot is the same as plot(d1$UnitPrice)
+d1 = d1$UnitPrice
+plot(d1, type="p")
+
+#line plot
+plot(d1, type="l")
+
+#combined line and plot point
+plot(d1, type="b")
+
+#the combined line and plot point, but without the points
+plot(d1, type="c")
+
+#overplotted (overlay of point and line point)
+plot(d1, type="o")
+
+#histogram
+plot(d1, type="h")
+
+#step graph, traversing horizontal first then vertical
+plot(d1, type="s")
+
+#step graph, traversing vertical first then horizontal
+plot(d1, type="S")
+
+
+######
+#additional parameters
+#Note: these are parameters, not individual lines of code.
+
+#The title of the graph
+main="Title" 
+
+#Subtitle for the graph
+sub="title"
+
+#Label for the x-axis
+xlab="X Axis"
+
+#Label for the y-axis
+ylab="Y Axis"
+
+#The aspect ratio between y and x.
+asp=1
+
+#Example plot
+plot(d1, type="h", main="Graph of Unit Prices vs Index", sub ="First 30 Rows", xlab = "Row Index", ylab="Prices", asp=1.4)
+

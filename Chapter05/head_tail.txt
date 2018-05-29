@@ -1,0 +1,15 @@
+#Head function
+head(df)
+
+#Head function showing n rows
+head(df, 10)
+
+#Head function showing (total number of rows + the specified parameter) rows
+head(d1, -2)
+
+#Tail function
+tail(d1, 4)
+
+#Tail function with negative parameter
+tail(d1, -2)
+

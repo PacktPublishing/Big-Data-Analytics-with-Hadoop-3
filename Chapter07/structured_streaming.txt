@@ -1,0 +1,21 @@
+#example of usage of Kafka source stream 
+val ds1 = spark
+.readStream
+.format("kafka")
+.option("kafka.bootstrap.servers", "host1:port1,host2:port2")
+.option("subscribe", "topic1")
+.load()
+ds1.selectExpr("CAST(key AS STRING)", "CAST(value AS STRING)")
+.as[(String, String)]
+
+#Using Kafka source instead of source stream:
+val ds1 = spark
+.read
+.format("kafka")
+.option("kafka.bootstrap.servers", "host1:port1,host2:port2")
+.option("subscribe", "topic1")
+.load()
+ds1.selectExpr("CAST(key AS STRING)", "CAST(value AS STRING)")
+.as[(String, String)]
+
+

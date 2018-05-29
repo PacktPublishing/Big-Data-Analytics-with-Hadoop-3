@@ -1,0 +1,25 @@
+#example
+d2 = df[0:10, c(1:8)]
+d3 = df[21:30, c(1:8)]
+d4 = rbind(d2, d3)
+
+#merge (inner join by default)
+d2 = df[0:11, c("InvoiceNo", "StockCode", "Description")]
+d3 = df[11:20, c("StockCode", "Description", "Quantity")]
+d4 = merge(d2, d3)
+
+#outer join merge
+d4 = merge(d2, d3, all=T)
+
+#left outer join
+d4 = merge(d2, d3, all.x=T)
+
+#right outer join
+d4 = merge(d2, d3, all.y=T)
+
+#cross join
+d4 = merge(d2, d3, by=NULL)
+
+#discerns between the two data frames being merged by adding a .x, .y respectively
+d4 = merge(d2, d3, by="StockCode", all=T)
+

@@ -1,0 +1,21 @@
+#Checking java version:
+
+java -version
+
+###After downloading and extracting Flink:
+
+#change directory to where you extracted Flink
+
+cd flink-1.4.2
+
+##### Starting a local Flink cluster
+
+./bin/start-local.sh
+
+#checking log files in log directory:
+
+tail log/flink-*-jobmanager-*.log
+
+#Using a scala shell
+
+./bin/start-scala-shell.sh remote localhost 6123

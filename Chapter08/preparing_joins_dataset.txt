@@ -1,0 +1,23 @@
+#read data
+val cities = benv.readTextFile("cities.csv")
+
+#read more data
+val temp = benv.readTextFile("temperatures.csv")
+
+#filter cities dataset
+ val cities = benv.readTextFile("cities.csv")
+    .filter(!_.contains("Id,"))
+
+#filter temperature dataset
+val temp = benv.readTextFile("temperatures.csv")
+    .filter(!_.contains("Id,"))
+
+#second cities dataset from first
+val cities2 = cities.map(x => (x.split(",")(0), x.split(",")(1)))
+cities2.first(10).print()
+
+#second temp dataset from first
+val temp2 = temp.map(x => (x.split(",")(1), x.split(",")(2)))
+temp2.first(10).print()
+
+

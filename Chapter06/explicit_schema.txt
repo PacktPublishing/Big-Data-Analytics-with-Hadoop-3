@@ -1,0 +1,15 @@
+#import necessary classes
+import org.apache.spark.sql.types.{StructType, IntegerType, StringType}
+
+#defining a schema
+val schema = new StructType().add("i", IntegerType).add("s", StringType)
+
+#printing newly created schema
+schema.printTreeString
+
+#can also print JSON
+schema.prettyJson
+
+#can access all data types of Spark SQL:
+import org.apache.spark.sql.types._
+

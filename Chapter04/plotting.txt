@@ -1,0 +1,8 @@
+#Plotting a single column
+d8 = pd.DataFrame(df, columns=['Quantity'])[0:100]
+d8.plot()
+
+#Plotting multiple columns
+d8 = pd.DataFrame(df, columns=['Quantity', 'UnitPrice'])[0:100]
+d8.plot()
+

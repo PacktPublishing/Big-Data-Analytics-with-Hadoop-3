@@ -1,0 +1,81 @@
+---- page 8 ---- (Everything below is on page 8)
+
+#Reading statesPopulation.csv
+
+val statesDF = spark.read.option("header",
+"true").option("inferschema", "true").option("sep",
+",").csv("statesPopulation.csv")
+
+#examined for schema
+
+statesDF.printSchema
+
+#Using explain on the data frame
+
+statesDF.explain(true)
+
+---- page 9 ----
+
+#Registering as a table view
+
+statesDF.createOrReplaceTempView("states")
+
+####We can now run commands to operate on data:
+
+#Show
+statesDF.show(5)
+spark.sql("select * from states limit 5").show
+
+#Sort
+
+statesDF.sort(col("Population").desc).show(5)
+spark.sql("select * from states order by Population desc limit
+5").show
+
+
+
+---- page 10 ---- 
+
+#groupby:
+
+statesDF.groupBy("State").sum("Population").show(5)
+spark.sql("select State, sum(Population) 
+from states group by State
+limit 5").show
+
+#groupby.agg (aggregate function):
+
+statesDF.groupBy("State").agg(sum("Population").alias("Total")).show(5)
+spark.sql("select State, sum(Population) as Total from states group
+by State limit 5").show
+
+---- page 11 ----
+
+#Execution plan of groupby and agg 
+
+statesDF.groupBy("State").agg(sum("Population").alias("Total")).explain(true)
+
+#Chaining operations together:
+
+statesDF.groupBy("State").agg(sum("Population").alias("Total")).sort(col("Total").desc).show(5)
+spark.sql("select State, sum(Population) as Total from states group
+by State order by Total desc limit 5").show
+
+---- page 12 ----
+
+#multiple aggregations at once
+
+statesDF.groupBy("State").agg(
+min("Population").alias("minTotal"),
+max("Population").alias("maxTotal"),
+avg("Population").alias("avgTotal"))
+.sort(col("minTotal").desc).show(5)
+
+spark.sql("select State, min(Population) as minTotal,
+max(Population) as maxTotal, avg(Population) as avgTotal from states group
+by State order by minTotal desc limit 5").show
+
+
+
+
+

@@ -1,0 +1,23 @@
+#Suppose this:
+d6 = pd.DataFrame.copy(df)[0:5]
+d7 = pd.DataFrame.copy(df)[2:8]
+
+
+d6.loc[3, ['Quantity']] = 110
+d6.loc[4, ['Quantity']] = 110
+
+d7.loc[3, ['Quantity']] = 210
+d7.loc[4, ['Quantity']] = 210
+pd.concat([d6, d7], keys=['d6', 'd7'])
+
+
+#You cannot have this:
+pd.DataFrame(df, columns=['Quantity', 'UnitPrice'])
+
+
+#Try combine_first():
+d6.combine_first(d7)
+
+#Try the other way around:
+d7.combine_first(d6)
+

@@ -1,0 +1,16 @@
+#rescaling
+
+//java
+inputStream.rescale();
+
+//scala
+inputStream.rescale()
+
+#broadcasting
+
+//java
+inputStream.broadcast();
+
+//scala
+inputStream.broadcast()Data Sinks
+

@@ -1,0 +1,11 @@
+#left outer join:
+
+val joinDF = statesPopulationDF.join(statesTaxRatesDF,
+ statesPopulationDF("State") === statesTaxRatesDF("State"), "leftouter")
+%sql
+ val joinDF = spark.sql("SELECT * FROM statesPopulationDF LEFT OUTER JOIN
+statesTaxRatesDF ON statesPopulationDF.State = statesTaxRatesDF.State")
+
+joinDF.count
+joinDF.show(5)
+

@@ -1,0 +1,32 @@
+#min
+min(as.numeric(df$UnitPrice))
+min(df$UnitPrice)
+
+#max
+max(df$UnitPrice)
+
+#mean
+mean(df$UnitPrice)
+
+#median
+median(df$UnitPrice)
+
+#quantile (returns 0%, 25%, 50%, 75%, 100% by default)
+quantile(df$UnitPrice)
+
+#quantile but with specific percentile values
+quantile(df$UnitPrice, c(0, .1, .5, .9)
+
+#standard deviation
+sd(df$UnitPrice)
+
+#variance
+var(df$UnitPrice)
+
+#range
+range(df$UnitPrice)
+
+#five number summary
+fivenum(df$UnitPrice)
+
+

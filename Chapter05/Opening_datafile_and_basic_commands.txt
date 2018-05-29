@@ -1,0 +1,43 @@
+df = read.csv(file=file.choose(), header=T, fill=T, sep=",", stringsAsFactors=F)
+
+#Returns if the parameter passed is a data frame or not:
+is.data.frame(df)
+
+#Returns number of columns
+ncol(df)
+
+#Returns length of data frame (number of columns)
+length(df)
+
+#Returns number of rows
+nrow(df)
+
+#Returns the names of the columns
+names(df)
+
+#Returns the names of the columns
+colnames(df)
+
+#Subset of the first three columns of the original data frame
+d1 = df[1:3]
+
+#More specific subset, selecting the first 10 rows
+d1 = df[1:10, c(1:3)]
+
+#Accessing an invididual column of data frame
+v1 = df[[3]]
+
+#First five elements
+v1[1:5]
+
+#Accessing another way
+v2 = df$Description
+v2[1:5]
+
+#Accessing a row assuming we know a data value in that row
+d1[d1$StockCode == "85123A", ]
+
+#Another way to specify the row
+d1 = df[1:10, c(1:8)]
+d1[2, c(1:8)]
+

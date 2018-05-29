@@ -1,0 +1,25 @@
+#setting event time and watermarks:
+
+//java
+final StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
+env.setStreamTimeCharacteristic(TimeCharacteristic.ProcessingTime);
+//or
+env.setStreamTimeCharacteristic(TimeCharacteristic.IngestionTime);
+
+//scala
+val env = StreamExecutionEnvironment.getExecutionEnvironment
+env.setStreamTimeCharacteristic(TimeCharacteristic.ProcessingTime)
+//or
+env.setStreamTimeCharacteristic(TimeCharacteristic.IngestionTime)
+
+
+#assigning time characteristic
+
+//java
+final StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
+env.setStreamTimeCharacteristic(TimeCharacteristic.EventTime;
+
+//scala
+val env = StreamExecutionEnvironment.getExecutionEnvironment
+env.setStreamTimeCharacteristic(TimeCharacteristic.EventTime)
+

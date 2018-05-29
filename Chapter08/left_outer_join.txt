@@ -1,0 +1,12 @@
+#left outer join
+
+cities2
+    .leftOuterJoin(temp2)
+    .where(0)
+    .equalTo(0) {
+        (x,y) => (x, if (y==null) (x._1,0) else (x._1, y._2.toInt))
+    }
+    .map(x=> (x._1._2, x._2._2.toInt))
+    .groupBy(0)
+    .sum(1)
+    .first(10).print()

@@ -1,0 +1,21 @@
+#inner join
+
+cities2.join(temp2)
+ .where(0)
+ .equalTo(0)
+ .first(10).print()
+
+
+
+#applying aggregations to get total temp per city:
+
+cities2
+    .join(temp2)
+    .where(0)
+    .equalTo(0)
+    .map(x=> (x._1._2, x._2._2.toInt))
+    .groupBy(0)
+    .sum(1)
+    .first(10).print()
+
+

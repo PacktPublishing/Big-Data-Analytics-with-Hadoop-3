@@ -1,0 +1,16 @@
+#window
+
+//java
+inputStream.keyBy(0).window(TumblingEventTimeWindows.of(Time.seconds(10)));
+
+//scala
+inputStream.keyBy(0).window(TumblingEventTimeWindows.of(Time.seconds(10)))
+
+#windowAll
+
+//java
+inputStream.windowAll(TumblingEventTimeWindows.of(Time.seconds(10)));
+
+//scala
+inputStream.windowAll(TumblingEventTimeWindows.of(Time.seconds(10)))
+

@@ -1,0 +1,19 @@
+#printing dataset:
+dataSet
+.first(5)
+.print()
+
+#performing simple map() transformation:
+dataSet
+.map(x => x.split(",")(2))
+.first(5)
+.print()
+
+#flatmap
+dataSet
+.flatMap(x => x.split(","))
+.map(x=> (x,1))
+.groupBy(0)
+.sum(1)
+.first(10)
+.print()

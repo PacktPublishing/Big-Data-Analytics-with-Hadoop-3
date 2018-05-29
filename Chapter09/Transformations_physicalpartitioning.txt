@@ -1,0 +1,27 @@
+#custom partitioning
+
+//java
+inputStream.partitionCustom(partitioner, "someKey");
+inputStream.partitionCustom(partitioner, 0);
+
+//scala
+inputStream.partitionCustom(partitioner, "someKey")
+inputStream.partitionCustom(partitioner, 0)
+
+
+#random partitioning
+
+//java
+inputStream.shuffle();
+
+//scala
+inputStream.shuffle()
+
+#rebalancing partitioning	
+
+//java
+inputStream.rebalance();
+
+//scala
+inputStream.rebalance()
+

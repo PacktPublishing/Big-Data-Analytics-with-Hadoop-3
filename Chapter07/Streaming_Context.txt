@@ -1,0 +1,42 @@
+### Creating a Streaming Context
+
+#Using an existing SparkContext
+StreamingContext(sparkContext: SparkContext, batchDuration: Duration)
+
+val ssc = new StreamingContext(sc, Seconds(10))
+
+#Providing configuration for one
+StreamingContext(conf: SparkConf, batchDuration: Duration)
+
+val conf = newSparkConf().setMaster("local[1]").setAppName("TextStreams")
+val ssc = new StreamingContext(conf, Seconds(10))
+
+#Get or create function
+def getOrCreate(
+checkpointPath: String,
+creatingFunc: () => StreamingContext,
+hadoopConf: Configuration = SparkHadoopUtil.get.conf,
+createOnError: Boolean = false
+): StreamingContext
+
+
+
+### Starting streaming context
+def start(): Unit
+
+ssc.start()
+
+
+### Stopping streaming context
+
+#stopping immediately
+def stop(stopSparkContext: Boolean)
+
+ssc.stop(false)
+
+#stop execution of streams with an option of allowing received data to be processed
+def stop(stopSparkContext: Boolean, stopGracefully: Boolean)
+
+ssc.stop(true, true)
+
+

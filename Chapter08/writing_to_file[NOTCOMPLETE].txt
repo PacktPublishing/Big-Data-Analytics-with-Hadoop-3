@@ -1,0 +1,21 @@
+
+
+val sum = dataSet.map(x => (x.split(",")(2), x.split(",")(3).toInt)).groupBy(0).sum(1)
+
+dataSet.flatMap(x => x.split(",")).map(x=> (x,1)).groupBy(0).sum(1).first(10).print()
+
+
+#First create a dataset for inner join of cities and temp:
+val results = cities2
+    .join(temp2)
+    .where(0)
+    .equalTo(0)
+    .map(x=> (x._1._2, x._2._2.toInt))
+    .groupBy(0)
+    .sum(1)
+
+#now call writeAsText() and execute():
+
+results.writeAsText("file:///Users/sridharalla/flink-1.4.2/results.txt").setParallelism(1)
+benv.execute()
+

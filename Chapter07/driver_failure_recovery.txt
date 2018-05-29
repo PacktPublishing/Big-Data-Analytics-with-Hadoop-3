@@ -1,0 +1,38 @@
+#invoke createStreamingContext:
+val ssc = StreamingContext.getOrCreate(checkpointDirectory,
+createStreamContext _)
+
+#shows how function is defined, and how getOrCreate() is invoked:
+
+val checkpointDirectory = "checkpoints"
+//Creating and setting up a new StreamingContext
+def createStreamContext(): StreamingContext = {
+val ssc = new StreamingContext(sc, Seconds(5))
+val twitterStream = TwitterUtils.createStream(ssc, None)
+val wordStream = twitterStream.flatMap(x => x.getText().split(" "))
+val aggStream = twitterStream
+.flatMap(x => x.getText.split(" ")).filter(_.startsWith("#"))
+.map(x => (x, 1))
+.reduceByKeyAndWindow(_ + _, _ - _, Seconds(15), Seconds(10), 5)
+ssc.checkpoint(checkpointDirectory)
+aggStream.checkpoint(Seconds(10))
+wordStream.checkpoint(Seconds(10))
+aggStream.foreachRDD((rdd, time) => {
+val count = rdd.count()
+if (count > 0) {
+val dt = new Date(time.milliseconds)
+println(s"\n\n$dt rddCount = $count\nTop 5 words\n")
+val top10 = rdd.sortBy(_._2, ascending = false).take(5)
+top10.foreach {
+case (word, count) =>
+println(s"[$word] - $count")
+}
+}
+})
+ssc
+}
+//Retrieve StreamingContext from checkpoint data or create a new one
+val ssc = StreamingContext.getOrCreate(checkpointDirectory,
+createStreamContext _)
+
+

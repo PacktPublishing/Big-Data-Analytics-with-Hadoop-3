@@ -1,0 +1,28 @@
+#map
+
+//java
+inputStream.map(new MapFunction<Integer, Integer>() {
+@Override
+public Integer map(Integer value) throws Exception {
+return 5 * value;
+}
+});
+
+//scala
+inputStream.map { x => x * 5 }
+
+#flatmap
+
+//java
+inputStream.flatMap(new FlatMapFunction<String, String>() {
+@Override
+public void flatMap(String value, Collector<String> out)
+throws Exception {
+    for(String word: value.split(" ")){
+        out.collect(word);
+    }
+});
+
+//scala
+inputStream.flatMap { str => str.split(" ") }
+

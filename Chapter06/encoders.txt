@@ -1,0 +1,19 @@
+#import statement
+import org.apache.spark.sql.Encoders
+
+#Looking at a defined tuple
+Encoders.product[(Integer, String)].schema.printTreeString
+
+#defining a case class
+case class Record(i: Integer, s: String)
+
+#can create schema on top of case class:
+Encoders.product[Record].schema.printTreeString
+
+#all datatypes are accessible by using:
+import org.apache.spark.sql.types._
+
+#using datatype objects in code:
+import org.apache.spark.sql.types.DataTypes
+val arrayType = DataTypes.createArrayType(IntegerType)
+

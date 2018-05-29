@@ -1,0 +1,6 @@
+jupyter notebook --allow-root --no-browser --ip=* --port=8888
+
+import pandas as pd
+path = '/Users/sridharalla/Documents/OnlineRetail.csv'
+df = pd.read_csv(path)
+

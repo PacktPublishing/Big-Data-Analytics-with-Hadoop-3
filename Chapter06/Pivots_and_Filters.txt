@@ -1,0 +1,14 @@
+#Pivots example:
+
+statesDF.groupBy("State").pivot("Year").sum("Population").show(5)
+
+
+
+#Filters execution plan:
+
+statesDF.filter("State == 'California'").explain(true)
+
+#Execute filter command:
+
+statesDF.filter("State == 'California'").show
+

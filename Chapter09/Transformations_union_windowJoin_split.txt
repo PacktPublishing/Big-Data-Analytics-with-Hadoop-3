@@ -1,0 +1,44 @@
+#union
+
+//java
+inputStream. union(inputStream1, inputStream2, ...);
+
+//scala
+inputStream. union(inputStream1, inputStream2, ...)
+
+#window join
+
+//java
+inputStream. join(inputStream1)
+.where(0).equalTo(1)
+.window(TumblingEventTimeWindows.of(Time.seconds(5)))
+.apply (new JoinFunction () {...});
+
+//scala
+inputStream. join(inputStream1)
+.where(0).equalTo(1)
+.window(TumblingEventTimeWindows.of(Time.seconds(5)))
+.apply { ... }
+
+#split
+
+//java
+SplitStream<Integer> split = inputStream.split(new OutputSelector<Integer>() {
+@Override
+public Iterable<String> select(Integer value) {
+List<String> output = new ArrayList<String>();
+if (value % 2 == 0) {
+output.add("even");
+}
+else {
+output.add("odd");
+}
+return output;
+}
+});
+
+//scala
+val split = inputStream.split( (num: Int) =>(num % 2) match {
+    case 0 => List("even")
+    case 1 => List("odd")
+})

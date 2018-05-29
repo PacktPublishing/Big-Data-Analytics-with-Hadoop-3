@@ -1,0 +1,17 @@
+#applying two filter operations:
+
+val dataSet = benv.readTextFile("OnlineRetail.csv")
+    .filter(!_.startsWith("InvoiceNo"))
+    .filter(_.split(",").length == 8)
+
+dataSet.map(x => x.split(",")(2))
+    .first(10).print()
+
+#we can also print Quantity column:
+dataSet.map(x => x.split(",")(3))
+    .first(10).print()
+
+#can also print a tuple of Description and Quantity columns:
+dataSet.map(x => (x.split(",")(2), x.split(",")(3).toInt))
+    .first(10).print()
+

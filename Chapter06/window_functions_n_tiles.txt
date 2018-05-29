@@ -1,0 +1,21 @@
+#importing necessary packages
+import org.apache.spark.sql.expressions.Window
+import org.apache.spark.sql.functions.col
+import org.apache.spark.sql.functions.max
+
+#window specifications
+val windowSpec = Window
+.partitionBy("State")
+.orderBy(col("Population").desc)
+.rowsBetween(Window.unboundedPreceding, Window.currentRow)
+
+
+#calculating rank over window specification:
+import org.apache.spark.sql.functions._
+
+statesPopulationDF.select(col("State"), col("Year"), max("Population").over(windowSpec), rank().over(windowSpec)).sort("State", "Year").show(10)
+
+#ntile
+import org.apache.spark.sql.functions._
+statesPopulationDF.select(col("State"), col("Year"), ntile(2).over(windowSpec), rank().over(windowSpec)).sort("State", "Year").show(10)
+

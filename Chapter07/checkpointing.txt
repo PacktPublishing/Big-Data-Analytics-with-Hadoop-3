@@ -1,0 +1,15 @@
+#calling checkpoint() on StreamingContext:
+def checkpoint(directory: String)
+
+#checkpointing each DStream every 10 seconds:
+val ssc = new StreamingContext(sc, Seconds(5))
+val twitterStream = TwitterUtils.createStream(ssc, None)
+val wordStream = twitterStream.flatMap(x => x.getText().split(" "))
+val aggStream = twitterStream
+.flatMap(x => x.getText.split(" ")).filter(_.startsWith("#"))
+.map(x => (x, 1))
+.reduceByKeyAndWindow(_ + _, _ - _, Seconds(15), Seconds(10), 5)
+ssc.checkpoint("checkpoints")
+aggStream.checkpoint(Seconds(10))
+wordStream.checkpoint(Seconds(10))
+

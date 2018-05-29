@@ -1,0 +1,32 @@
+#group by description and print first 10 records
+dataSet.map(x => (x.split(",")(2), x.split(",")(3).toInt))
+    .groupBy(0)
+    .first(10).print()
+
+
+
+#aggregation, groups by description and adds quantities for each description, prints first 10 records:
+
+dataSet.map(x => (x.split(",")(2), x.split(",")(3).toInt))
+    .groupBy(0)
+    .sum(1)
+    .first(10).print()
+
+
+#aggregation, groups by description and adds quantities for each description, but prints top description with max quantity:
+
+dataSet.map(x => (x.split(",")(2), x.split(",")(3).toInt))
+    .groupBy(0)
+    .sum(1)
+    .max(1)
+    .first(10).print()
+
+
+#aggregation, groups by description and adds quantities for each description, but prints top description with min quantity:
+
+dataSet.map(x => (x.split(",")(2), x.split(",")(3).toInt))
+    .groupBy(0)
+    .sum(1)
+    .min(1)
+    .first(10).print()
+

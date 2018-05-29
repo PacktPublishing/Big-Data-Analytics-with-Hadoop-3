@@ -1,0 +1,25 @@
+#starting a server on port 9999:
+nc -lk 9999
+
+#creation of an input stream calling on SparkStream's readStream API:
+
+//Creating stream reading from localhost 999
+val inputLines = spark.readStream
+.format("socket")
+.option("host", "localhost")
+.option("port", 9999)
+.load()
+inputLines: org.apache.spark.sql.DataFrame = [value: string]
+
+// Splitting the inputLines into words
+val words = inputLines.as[String].flatMap(_.split(" "))
+words: org.apache.spark.sql.Dataset[String] = [value: string]
+
+// Generating running word count
+val wordCounts = words.groupBy("value").count()
+wordCounts: org.apache.spark.sql.DataFrame = [value: string, count: bigint]
+val query = wordCounts.writeStream
+.outputMode("complete")
+.format("console")
+
+query.start()

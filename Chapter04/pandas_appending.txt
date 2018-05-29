@@ -1,0 +1,4 @@
+#appending rows 200-210 to rows 0-10
+df3 = df[0:10].append(df[200:210])
+df3
+

@@ -1,0 +1,28 @@
+#Value counts:
+pd.value_counts(df['Country'])
+
+#Drop duplicates example:
+
+d1 = pd.DataFrame(df, columns = ['InvoiceNo', 'StockCode', 'Description'])[0:100]
+d2 = pd.DataFrame(df, columns = ['Description', 'InvoiceDate', 'Quantity'])[0:100]
+
+pd.merge(d1, d2)
+
+#Using drop duplicates
+d1 = pd.DataFrame(df, columns = ['InvoiceNo', 'StockCode', 'Description'])[0:100]
+d2 = pd.DataFrame(df, columns = ['Description', 'InvoiceDate', 'Quantity'])[0:100]
+
+pd.merge(d1, d2).drop_duplicates(['StockCode'])
+
+
+#Resetting index and using drop_duplicates
+d1 = pd.DataFrame(df, columns = ['InvoiceNo', 'StockCode', 'Description'])[0:100]
+d2 = pd.DataFrame(df, columns = ['Description', 'InvoiceDate', 'Quantity'])[0:100]
+
+d3 = pd.merge(d1, d2).drop_duplicates(['StockCode'])
+d3.reset_index()
+
+
+#If you don't want the old index present, use this in place of d3.reset_index()
+d3.reset_index(drop=True)
+
